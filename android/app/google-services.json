@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "290728547022",
+    "project_id": "budgetplanner-3a52f",
+    "storage_bucket": "budgetplanner-3a52f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290728547022:android:c0d90ef2edc4cda8c6369f",
+        "android_client_info": {
+          "package_name": "com.example.budget_planner2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjZkz8UfJLfItqBO9WV0AipVwY5QldFKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290728547022:android:8a8844a790232c14c6369f",
+        "android_client_info": {
+          "package_name": "com.example.budgetplanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjZkz8UfJLfItqBO9WV0AipVwY5QldFKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
