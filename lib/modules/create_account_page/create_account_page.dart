@@ -93,15 +93,13 @@ class _CreateAccountPageContentsState extends State<CreateAccountPageContents> {
     });
     try {
       await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      )
+          .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
         FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
+        Navigator.pop(context);
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
