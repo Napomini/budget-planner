@@ -1,4 +1,4 @@
-enum TransctionType {
+enum TransactionType {
   saving,
   expense,
   bill,
@@ -10,23 +10,23 @@ enum TransctionType {
 
 class Transaction {
   DateTime dateTime;
-  double totalTransctionAmount;
-  List<MicroTransction> transctions;
+  double totalTransactionAmount;
+  List<MicroTransaction> transactions;
 
   Transaction({
     required this.dateTime,
-    this.totalTransctionAmount = 0.00,
-    this.transctions = const <MicroTransction>[],
+    this.totalTransactionAmount = 0.00,
+    this.transactions = const <MicroTransaction>[],
   });
 }
 
-class MicroTransction {
-  TransctionType transctionType;
+class MicroTransaction {
+  TransactionType transactionType;
   String reason;
   double tansctionAmount;
 
-  MicroTransction({
-    required this.transctionType,
+  MicroTransaction({
+    required this.transactionType,
     required this.reason,
     required this.tansctionAmount,
   });

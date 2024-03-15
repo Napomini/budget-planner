@@ -1,24 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-<<<<<<< HEAD
-import '../home_page/home_page.dart';
-
-class Root extends StatelessWidget {
-=======
 import '../add_transaction_page/add_transaction_page.dart';
 import '../home_page/home_page.dart';
 
 class Root extends StatefulWidget {
->>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
   final User user;
   const Root({super.key, required this.user});
 
   @override
-<<<<<<< HEAD
-  Widget build(BuildContext context) {
-    return HomePage(user: user);
-=======
   State<Root> createState() => _RootState();
 }
 
@@ -63,6 +53,5 @@ class _RootState extends State<Root> {
         ],
       ),
     );
->>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
   }
 }

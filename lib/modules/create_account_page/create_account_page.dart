@@ -93,20 +93,6 @@ class _CreateAccountPageContentsState extends State<CreateAccountPageContents> {
     });
     try {
       await FirebaseAuth.instance
-<<<<<<< HEAD
-          .createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      )
-          .then((value) async {
-        final UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-        // userCredential!.additionalUserInfo()
-        // .then((value) {});
-=======
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
         FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -114,7 +100,6 @@ class _CreateAccountPageContentsState extends State<CreateAccountPageContents> {
           password: password,
         );
         Navigator.pop(context);
->>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

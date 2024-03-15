@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-<<<<<<< HEAD
 import '../constants/models/transaction.dart';
-=======
-import '../constants/models/transction.dart';
->>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
 import '../constants/theme.dart';
 import 'triple_rail.dart';
 
@@ -15,7 +11,7 @@ class BorrowingTransactionWidget extends StatelessWidget {
     super.key,
   });
 
-  final MicroTransction transaction;
+  final MicroTransaction transaction;
   final double distance;
 
   @override

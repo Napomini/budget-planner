@@ -1,29 +1,16 @@
-<<<<<<< HEAD
-import 'package:budgetplanner/constants/models/transaction.dart';
-import 'package:budgetplanner/widgets/triple_rail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-// import '../constants/helper.dart';
-// import '../constants/theme.dart';
-=======
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import '../constants/models/transction.dart';
->>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
+import '../constants/models/transaction.dart';
 import 'borrowing_transaction_widget.dart';
 import 'expense_transaction_widget.dart';
 import 'lending_transaction_widget.dart';
 import 'saving_transaction_widget.dart';
-<<<<<<< HEAD
-=======
 import 'triple_rail.dart';
->>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
 
-class TransctionWidget extends StatelessWidget {
+class TransactionWidget extends StatelessWidget {
   final Transaction transaction;
-  const TransctionWidget({super.key, required this.transaction});
+  const TransactionWidget({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +28,10 @@ class TransctionWidget extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: transaction.transctions.length,
+              itemCount: transaction.transactions.length,
               itemBuilder: (_, i) {
                 return _BuildMicroTransaction(
-                  transaction: transaction.transctions[i],
+                  transaction: transaction.transactions[i],
                   distance: distance,
                 );
               },
@@ -106,7 +93,7 @@ class _BuildSummarySection extends StatelessWidget {
         ],
       ),
       trailing: Text(
-        'Tk ${transaction.totalTransctionAmount}',
+        'Tk ${transaction.totalTransactionAmount}',
         style: const TextStyle(
           color: Colors.black,
         ),
@@ -121,12 +108,12 @@ class _BuildMicroTransaction extends StatelessWidget {
     required this.distance,
   });
 
-  final MicroTransction transaction;
+  final MicroTransaction transaction;
   final double distance;
 
   @override
   Widget build(BuildContext context) {
-    if (transaction.transctionType == TransctionType.saving) {
+    if (transaction.transactionType == TransactionType.saving) {
       return Padding(
         padding: EdgeInsets.only(top: distance),
         child: SavingTransactionWIdget(
@@ -135,7 +122,7 @@ class _BuildMicroTransaction extends StatelessWidget {
         ),
       );
     }
-    if (transaction.transctionType == TransctionType.lending) {
+    if (transaction.transactionType == TransactionType.lending) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: LendingTransactionWidget(
@@ -144,7 +131,7 @@ class _BuildMicroTransaction extends StatelessWidget {
         ),
       );
     }
-    if (transaction.transctionType == TransctionType.borrowing) {
+    if (transaction.transactionType == TransactionType.borrowing) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: BorrowingTransactionWidget(

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/helper.dart';
-<<<<<<< HEAD
 import '../constants/models/transaction.dart';
-=======
-import '../constants/models/transction.dart';
->>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
 import '../constants/theme.dart';
 import 'triple_rail.dart';
 
@@ -16,7 +12,7 @@ class SavingTransactionWIdget extends StatelessWidget {
     super.key,
   });
 
-  final MicroTransction transaction;
+  final MicroTransaction transaction;
   final double distance;
 
   @override
@@ -38,7 +34,7 @@ class SavingTransactionWIdget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                capitalize(transaction.transctionType.name),
+                capitalize(transaction.transactionType.name),
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
@@ -64,12 +60,12 @@ class SavingTransactionWIdget extends StatelessWidget {
 }
 
 class _BuildIcon extends StatelessWidget {
-  final TransctionType transctionType;
-  const _BuildIcon({required this.transctionType});
+  final TransactionType transactionType;
+  const _BuildIcon({required this.transactionType});
 
   @override
   Widget build(BuildContext context) {
-    if (transctionType == TransctionType.saving) {
+    if (transactionType == TransactionType.saving) {
       return CircleAvatar(
         radius: 27,
         child: Image.asset(
@@ -80,7 +76,7 @@ class _BuildIcon extends StatelessWidget {
     }
     return CircleAvatar(
       radius: 27,
-      child: Text(transctionType.name.substring(0, 1)),
+      child: Text(transactionType.name.substring(0, 1)),
     );
   }
 }

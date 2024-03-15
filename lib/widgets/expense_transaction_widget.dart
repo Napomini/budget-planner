@@ -12,7 +12,7 @@ class ExpenseTransactionWidget extends StatelessWidget {
     super.key,
   });
 
-  final MicroTransction transaction;
+  final MicroTransaction transaction;
   final double distance;
 
   @override
@@ -29,13 +29,13 @@ class ExpenseTransactionWidget extends StatelessWidget {
           //     height: 25,
           //   ),
           // ),
-          _BuildIcon(transctionType: transaction.transctionType),
+          _BuildIcon(transactionType: transaction.transactionType),
           SizedBox(width: distance),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                capitalize(transaction.transctionType.name),
+                capitalize(transaction.transactionType.name),
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
@@ -54,12 +54,12 @@ class ExpenseTransactionWidget extends StatelessWidget {
 }
 
 class _BuildIcon extends StatelessWidget {
-  final TransctionType transctionType;
-  const _BuildIcon({required this.transctionType});
+  final TransactionType transactionType;
+  const _BuildIcon({required this.transactionType});
 
   @override
   Widget build(BuildContext context) {
-    if (transctionType == TransctionType.transportation) {
+    if (transactionType == TransactionType.transportation) {
       return CircleAvatar(
         radius: 27,
         child: Image.asset(
@@ -68,7 +68,7 @@ class _BuildIcon extends StatelessWidget {
         ),
       );
     }
-    if (transctionType == TransctionType.fee) {
+    if (transactionType == TransactionType.fee) {
       return CircleAvatar(
         radius: 27,
         child: Image.asset(
@@ -77,7 +77,7 @@ class _BuildIcon extends StatelessWidget {
         ),
       );
     }
-    if (transctionType == TransctionType.bill) {
+    if (transactionType == TransactionType.bill) {
       return CircleAvatar(
         radius: 27,
         child: Image.asset(
@@ -88,7 +88,7 @@ class _BuildIcon extends StatelessWidget {
     }
     return CircleAvatar(
       radius: 27,
-      child: Text(transctionType.name.substring(0, 1)),
+      child: Text(transactionType.name.substring(0, 1)),
     );
   }
 }

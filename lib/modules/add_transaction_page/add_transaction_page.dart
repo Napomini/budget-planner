@@ -1,5 +1,4 @@
 import 'package:budgetplanner/widgets/triple_rail.dart';
-
 import 'package:flutter/material.dart';
 
 class AddTransactionPage extends StatefulWidget {
@@ -12,7 +11,7 @@ class AddTransactionPage extends StatefulWidget {
 class _AddTransactionPageState extends State<AddTransactionPage> {
   int _currentIndex = 0;
 
-  void ontapTranactionType(int newVal) {
+  void ontapTransactionType(int newVal) {
     setState(() {
       debugPrint('Ontaped at $newVal');
       _currentIndex == newVal;
@@ -136,7 +135,7 @@ class BuildExpenseEditor extends StatefulWidget {
 
 class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
   late TextEditingController amountController;
-  String subTypeImgUrl = 'assets/tranactions/icon_food.jpg';
+  String subTypeImgUrl = 'assets/transactions/icon_food.png';
   String subTypeTitle = 'Food';
   DateTime date = DateTime.now();
   late TextEditingController noteConroller;
@@ -552,47 +551,47 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
                   children: <Widget>[
                     _buildSubTypeOption(
                       'Food',
-                      'assets/tranactions/icon_food.jpg',
+                      'assets/transactions/icon_food.png',
                     ),
                     _buildSubTypeOption(
                       'Apparel',
-                      'assets/tranactions/icon_apparel.jpg',
+                      'assets/transactions/icon_apparel.png',
                     ),
                     _buildSubTypeOption(
                       'Beauty',
-                      'assets/tranactions/icon_beauty.jpg',
+                      'assets/transactions/icon_beauty.png',
                     ),
                     _buildSubTypeOption(
                       'Culture',
-                      'assets/tranactions/icon_culture.jpg',
+                      'assets/transactions/icon_culture.png',
                     ),
                     _buildSubTypeOption(
                       'Donation',
-                      'assets/tranactions/icon_donation.jpg',
+                      'assets/transactions/icon_donation.png',
                     ),
                     _buildSubTypeOption(
                       'Education',
-                      'assets/tranactions/icon_education.jpg',
+                      'assets/transactions/icon_education.png',
                     ),
                     _buildSubTypeOption(
                       'Gift',
-                      'assets/tranactions/icon_gift.jpg',
+                      'assets/transactions/icon_gift.png',
                     ),
                     _buildSubTypeOption(
                       'Health',
-                      'assets/tranactions/icon_health.jpg',
+                      'assets/transactions/icon_health.png',
                     ),
                     _buildSubTypeOption(
                       'Household',
-                      'assets/tranactions/icon_household.jpg',
+                      'assets/transactions/icon_household.png',
                     ),
                     _buildSubTypeOption(
                       'Pet',
-                      'assets/tranactions/icon_pet.jpg',
+                      'assets/transactions/icon_pet.png',
                     ),
                     _buildSubTypeOption(
                       'Transportation',
-                      'assets/tranactions/icon_transportation.jpg',
+                      'assets/transactions/icon_transportation.png',
                     ),
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'all_transctions/all_transctions.dart';
+import 'all_transactions/all_transaction.dart';
 import 'app_bar/appbar.dart';
 import 'current_month_summary/current_month_summary.dart';
 
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 10),
             const CurrentMonthSummary(),
             const SizedBox(height: 10),
-            const AllTransctions(),
+            const AllTransactions(),
             const SizedBox(height: 100),
             OutlinedButton(
               onPressed: () async {
