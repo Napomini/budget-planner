@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:budgetplanner/constants/models/transaction.dart';
 import 'package:budgetplanner/widgets/triple_rail.dart';
 import 'package:flutter/material.dart';
@@ -5,10 +6,20 @@ import 'package:intl/intl.dart';
 
 // import '../constants/helper.dart';
 // import '../constants/theme.dart';
+=======
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../constants/models/transction.dart';
+>>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
 import 'borrowing_transaction_widget.dart';
 import 'expense_transaction_widget.dart';
 import 'lending_transaction_widget.dart';
 import 'saving_transaction_widget.dart';
+<<<<<<< HEAD
+=======
+import 'triple_rail.dart';
+>>>>>>> d73e265d611e097fde1d7d630c4005eb357912c3
 
 class TransctionWidget extends StatelessWidget {
   final Transaction transaction;

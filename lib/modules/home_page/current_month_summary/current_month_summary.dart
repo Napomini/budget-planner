@@ -1,6 +1,7 @@
-import 'package:budgetplanner/constants/theme.dart';
-import 'package:budgetplanner/widgets/triple_rail.dart';
 import 'package:flutter/material.dart';
+
+import '../../../constants/theme.dart';
+import '../../../widgets/triple_rail.dart';
 
 class CurrentMonthSummary extends StatelessWidget {
   const CurrentMonthSummary({super.key});

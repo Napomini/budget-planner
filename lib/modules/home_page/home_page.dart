@@ -1,9 +1,9 @@
-import 'package:budgetplanner/modules/home_page/current_month_summary/current_month_summary.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'all_transctions/all_transctions.dart';
 import 'app_bar/appbar.dart';
+import 'current_month_summary/current_month_summary.dart';
 
 class HomePage extends StatelessWidget {
   final User user;

@@ -1,4 +1,4 @@
-import 'package:budgetplanner/modules/home_page/home_page.dart';
+import 'package:budgetplanner/modules/root/root.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +43,8 @@ class _CheckLogInStatusState extends State<CheckLogInStatus> {
         if (snapshot.data == null) {
           return const LogInPage();
         }
-        return HomePage(user: snapshot.data!);
+        // return HomePage(user: snapshot.data!);
+        return Root(user: snapshot.data!);
       },
     );
   }
