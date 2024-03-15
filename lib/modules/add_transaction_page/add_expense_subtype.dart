@@ -74,21 +74,8 @@ class AddExpenseSubtype extends StatelessWidget {
   }
 
   Widget _buildSubTypeOption(String title, String photoUrl) {
-    return Container(
+    return SizedBox(
       height: 20,
-      // decoration: BoxDecoration(
-      //   border: Border.all(
-      //     color: Colors.black,
-      //   ),
-      //   // borderRadius: BorderRadius.circular(8.0),
-      // ),
-      // child: Text(
-      //   title,
-      //   style: const TextStyle(
-      //     color: Colors.white70,
-      //     fontSize: 14,
-      //   ),
-      // ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(

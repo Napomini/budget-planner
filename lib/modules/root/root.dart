@@ -28,6 +28,7 @@ class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _buildBody(widget.user),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
