@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-class BuildExpenseEditor extends StatefulWidget {
-  const BuildExpenseEditor({super.key});
+class BuildDebtSubtype extends StatefulWidget {
+  const BuildDebtSubtype({super.key});
 
   @override
-  State<BuildExpenseEditor> createState() => _BuildExpenseEditorState();
+  State<BuildDebtSubtype> createState() => _BuildDebtSubtypeState();
 }
 
-class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
+class _BuildDebtSubtypeState extends State<BuildDebtSubtype> {
   late TextEditingController amountController;
-  String subTypeImgUrl = 'assets/transactions/icon_food.png';
-  String subTypeTitle = 'Food';
+  late TextEditingController otherPersionController;
+  String subTypeImgUrl = 'assets/transactions/1710526737750.png';
+  String subTypeTitle = 'Lend';
   DateTime date = DateTime.now();
   late TextEditingController noteConroller;
 
@@ -19,6 +20,7 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
     super.initState();
     amountController = TextEditingController(text: '0');
     noteConroller = TextEditingController();
+    otherPersionController = TextEditingController();
   }
 
   @override
@@ -26,6 +28,7 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
     super.dispose();
     amountController.dispose();
     noteConroller.dispose();
+    otherPersionController.dispose();
   }
 
   @override
@@ -38,9 +41,6 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
           Container(
             decoration: BoxDecoration(
               color: Colors.black45,
-              // border: Border.all(
-              //   color: Colors.blue,
-              // ),
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Padding(
@@ -147,7 +147,48 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
                         ],
                       ),
                       Divider(
-                          color: Colors.black26, indent: width * (1 - 0.78)),
+                        color: Colors.black26,
+                        indent: width * (1 - 0.78),
+                      ),
+                    ],
+                  ),
+
+                  /// other persion
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(child: Container()),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20), // Image border
+                        child: SizedBox.fromSize(
+                          size: const Size.fromRadius(25), // Image radius
+                          child: const Padding(
+                            padding: EdgeInsets.all(2.0),
+                            child: Icon(Icons.note, size: 50),
+                          ),
+                        ),
+                      ),
+                      Expanded(child: Container()),
+                      SizedBox(
+                        width: width * 0.78,
+                        child: Column(
+                          children: [
+                            TextField(
+                              controller: otherPersionController,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                hintText: getOtherPersionString(),
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                              ),
+                            ),
+                            const Divider(color: Colors.black26),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
 
@@ -311,6 +352,13 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
     );
   }
 
+  String getOtherPersionString() {
+    if (subTypeTitle == 'Borrow') {
+      return 'Lender';
+    }
+    return 'Borrower';
+  }
+
   void selectDate() async {
     final newDate = await showDatePicker(
       context: context,
@@ -392,7 +440,7 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
             child: Column(
               children: [
                 const Text(
-                  'Add Expense type',
+                  'Select a Category',
                   style: TextStyle(
                     // color: Colors.white70,
                     fontSize: 16,
@@ -410,48 +458,20 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
                   ),
                   children: <Widget>[
                     _buildSubTypeOption(
-                      'Food',
-                      'assets/transactions/icon_food.png',
+                      'Lend',
+                      'assets/transactions/1710526737750.png',
                     ),
                     _buildSubTypeOption(
-                      'Apparel',
-                      'assets/transactions/icon_apparel.png',
+                      'Repayment',
+                      'assets/transactions/1710526737750.png',
                     ),
                     _buildSubTypeOption(
-                      'Beauty',
-                      'assets/transactions/icon_beauty.png',
+                      'Borrow',
+                      'assets/transactions/1710526737750.png',
                     ),
                     _buildSubTypeOption(
-                      'Culture',
-                      'assets/transactions/icon_culture.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Donation',
-                      'assets/transactions/icon_donation.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Education',
-                      'assets/transactions/icon_education.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Gift',
-                      'assets/transactions/icon_gift.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Health',
-                      'assets/transactions/icon_health.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Household',
-                      'assets/transactions/icon_household.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Pet',
-                      'assets/transactions/icon_pet.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Transportation',
-                      'assets/transactions/icon_transportation.png',
+                      'Debt Collection',
+                      'assets/transactions/1710526737750.png',
                     ),
                   ],
                 ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class BuildExpenseEditor extends StatefulWidget {
-  const BuildExpenseEditor({super.key});
+class BuildIncomeEditor extends StatefulWidget {
+  const BuildIncomeEditor({super.key});
 
   @override
-  State<BuildExpenseEditor> createState() => _BuildExpenseEditorState();
+  State<BuildIncomeEditor> createState() => _BuildIncomeEditorState();
 }
 
-class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
+class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
   late TextEditingController amountController;
-  String subTypeImgUrl = 'assets/transactions/icon_food.png';
-  String subTypeTitle = 'Food';
+  String subTypeImgUrl = 'assets/transactions/1710526737750.png';
+  String subTypeTitle = 'Income';
   DateTime date = DateTime.now();
   late TextEditingController noteConroller;
 
@@ -147,7 +147,9 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
                         ],
                       ),
                       Divider(
-                          color: Colors.black26, indent: width * (1 - 0.78)),
+                        color: Colors.black26,
+                        indent: width * (1 - 0.78),
+                      ),
                     ],
                   ),
 
@@ -392,7 +394,7 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
             child: Column(
               children: [
                 const Text(
-                  'Add Expense type',
+                  'Select a Category',
                   style: TextStyle(
                     // color: Colors.white70,
                     fontSize: 16,
@@ -410,48 +412,20 @@ class _BuildExpenseEditorState extends State<BuildExpenseEditor> {
                   ),
                   children: <Widget>[
                     _buildSubTypeOption(
-                      'Food',
-                      'assets/transactions/icon_food.png',
+                      'Salary',
+                      'assets/transactions/1710526737750.png',
                     ),
                     _buildSubTypeOption(
-                      'Apparel',
-                      'assets/transactions/icon_apparel.png',
+                      'Award',
+                      'assets/transactions/1710526737750.png',
                     ),
                     _buildSubTypeOption(
-                      'Beauty',
-                      'assets/transactions/icon_beauty.png',
+                      'Interest',
+                      'assets/transactions/1710526737750.png',
                     ),
                     _buildSubTypeOption(
-                      'Culture',
-                      'assets/transactions/icon_culture.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Donation',
-                      'assets/transactions/icon_donation.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Education',
-                      'assets/transactions/icon_education.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Gift',
-                      'assets/transactions/icon_gift.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Health',
-                      'assets/transactions/icon_health.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Household',
-                      'assets/transactions/icon_household.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Pet',
-                      'assets/transactions/icon_pet.png',
-                    ),
-                    _buildSubTypeOption(
-                      'Transportation',
-                      'assets/transactions/icon_transportation.png',
+                      'Other',
+                      'assets/transactions/1710526737750.png',
                     ),
                   ],
                 ),
