@@ -1,20 +1,13 @@
 import 'package:budgetplanner/modules/create_account_page/create_account_page.dart';
 import 'package:budgetplanner/modules/forget_password_page/forget_password_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-// state access korte parbo nah
-// what is state?
-// statefull : state ta access korte parbo
-// state -> ekta widget ki obosthay ace
-//
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -93,8 +86,23 @@ class LogInScreenContents extends StatefulWidget {
 }
 
 class _LogInScreenContentsState extends State<LogInScreenContents> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  bool looding = false;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   void logIn() {
     final String email = emailController.text;
@@ -108,10 +116,59 @@ class _LogInScreenContentsState extends State<LogInScreenContents> {
       return;
     }
     // logIn logic
+    signIn(email, password);
+  }
+
+  void signIn(String email, String password) async {
+    setState(() {
+      looding = true;
+    });
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('user-not-found'),
+          ));
+          setState(() {
+            looding = false;
+          });
+        }
+      } else if (e.code == 'wrong-password') {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('wrong-password, try again'),
+          ));
+          setState(() {
+            looding = false;
+          });
+        }
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('something went wrong, try again'),
+          ));
+          setState(() {
+            looding = false;
+          });
+        }
+      }
+    } catch (e) {
+      setState(() {
+        looding = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (looding) {
+      return const Center(child: Text('Loading'));
+    }
     // double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Column(
@@ -137,8 +194,8 @@ class _LogInScreenContentsState extends State<LogInScreenContents> {
         SizedBox(
           width: 350,
           child: Material(
-            elevation: 7.0,
-            shadowColor: Color.fromARGB(118, 33, 149, 243),
+            elevation: 10.0,
+            shadowColor: Colors.blue,
             borderRadius: const BorderRadius.all(
               Radius.circular(10.0),
             ),
@@ -170,8 +227,8 @@ class _LogInScreenContentsState extends State<LogInScreenContents> {
         SizedBox(
           width: 350,
           child: Material(
-            elevation: 7.0,
-            shadowColor: Color.fromARGB(118, 33, 149, 243),
+            elevation: 10.0,
+            shadowColor: Colors.blue,
             borderRadius: const BorderRadius.all(
               Radius.circular(10.0),
             ),
@@ -251,7 +308,7 @@ class _LogInScreenContentsState extends State<LogInScreenContents> {
         const SizedBox(height: 70),
         Row(
           children: [
-            const Text("Don't have an account?"),
+            const Text("Don't have a account?"),
             const SizedBox(width: 5),
             InkWell(
               onTap: () {

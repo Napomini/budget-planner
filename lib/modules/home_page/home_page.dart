@@ -2,6 +2,7 @@ import 'package:budgetplanner/modules/home_page/current_month_summary/current_mo
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'all_transctions/all_transctions.dart';
 import 'app_bar/appbar.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,7 +23,8 @@ class HomePage extends StatelessWidget {
           children: [
             const SizedBox(height: 10),
             const CurrentMonthSummary(),
-            // Text('hello ${user.email}'),
+            const SizedBox(height: 10),
+            const AllTransctions(),
             const SizedBox(height: 100),
             OutlinedButton(
               onPressed: () async {

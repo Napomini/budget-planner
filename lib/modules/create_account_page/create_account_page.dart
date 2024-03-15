@@ -97,11 +97,14 @@ class _CreateAccountPageContentsState extends State<CreateAccountPageContents> {
         email: email,
         password: password,
       )
-          .then((value) {
-        FirebaseAuth.instance.signInWithEmailAndPassword(
+          .then((value) async {
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
+        // userCredential!.additionalUserInfo()
+        // .then((value) {});
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -127,14 +130,20 @@ class _CreateAccountPageContentsState extends State<CreateAccountPageContents> {
     setState(() {
       looding = false;
     });
+    if (context.mounted) Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (looding) {
-      return const Center(child: Text('loading'));
-    }
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    if (looding) {
+      return SizedBox(
+        height: height,
+        width: width,
+        child: const Center(child: CircularProgressIndicator()),
+      );
+    }
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

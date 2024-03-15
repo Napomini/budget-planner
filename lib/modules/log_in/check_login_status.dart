@@ -1,8 +1,8 @@
-import 'package:budgetplanner/modules/home_page/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../log_in/log_in_page.dart';
+import '../root/root.dart';
+import 'log_in_page.dart';
 
 class CheckLogInStatus extends StatefulWidget {
   const CheckLogInStatus({super.key});
@@ -21,7 +21,6 @@ class _CheckLogInStatusState extends State<CheckLogInStatus> {
 
   @override
   Widget build(BuildContext context) {
-    // return const LogInPage();
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
@@ -43,7 +42,8 @@ class _CheckLogInStatusState extends State<CheckLogInStatus> {
         if (snapshot.data == null) {
           return const LogInPage();
         }
-        return HomePage(user: snapshot.data!);
+        // return HomePage(user: snapshot.data!);
+        return Root(user: snapshot.data!);
       },
     );
   }
