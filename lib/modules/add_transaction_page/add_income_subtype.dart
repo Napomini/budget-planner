@@ -9,7 +9,7 @@ class BuildIncomeEditor extends StatefulWidget {
 
 class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
   late TextEditingController amountController;
-  String subTypeImgUrl = 'assets/transactions/1710526737750.png';
+  String subTypeImgUrl = 'assets/transactions/icon_salary.png';
   String subTypeTitle = 'Income';
   DateTime date = DateTime.now();
   late TextEditingController noteConroller;
@@ -37,10 +37,19 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.black45,
+              color: Color.fromARGB(255, 255, 255, 255),
               // border: Border.all(
               //   color: Colors.blue,
               // ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 39, 39, 39)
+                      .withOpacity(0.3), // Shadow color
+                  spreadRadius: 0, // Spread radius
+                  blurRadius: 10, // Blur radius
+                  offset: const Offset(0, 4), // Offset
+                ),
+              ],
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Padding(
@@ -56,16 +65,18 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Colors.blue,
+                            width: 2.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: const Center(
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                             child: Text(
                               'BDT',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  fontSize: 14),
                             ),
                           ),
                         ),
@@ -127,14 +138,14 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                                       Text(
                                         subTypeTitle,
                                         style: const TextStyle(
-                                          color: Colors.white70,
+                                          color: Color.fromARGB(179, 0, 0, 0),
                                           fontSize: 14,
                                         ),
                                       ),
                                       const Spacer(),
                                       const Icon(
                                         Icons.arrow_forward_ios,
-                                        color: Colors.white54,
+                                        color: Color.fromARGB(137, 0, 0, 0),
                                         size: 16,
                                       ),
                                       const SizedBox(width: 15),
@@ -181,7 +192,8 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Colors.white,
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
@@ -195,7 +207,7 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                                       child: Text(
                                         getDateString(date),
                                         style: const TextStyle(
-                                          color: Colors.white70,
+                                          color: Color.fromARGB(179, 0, 0, 0),
                                           fontSize: 14,
                                         ),
                                       ),
@@ -208,7 +220,8 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Colors.white,
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
@@ -222,7 +235,7 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                                       child: Text(
                                         getTimeString(date),
                                         style: const TextStyle(
-                                          color: Colors.white70,
+                                          color: Color.fromARGB(179, 0, 0, 0),
                                           fontSize: 14,
                                         ),
                                       ),
@@ -232,7 +245,7 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                                 const Spacer(),
                                 const Icon(
                                   Icons.arrow_forward_ios,
-                                  color: Colors.white54,
+                                  color: Color.fromARGB(137, 0, 0, 0),
                                   size: 16,
                                 ),
                                 const SizedBox(width: 15),
@@ -413,19 +426,19 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                   children: <Widget>[
                     _buildSubTypeOption(
                       'Salary',
-                      'assets/transactions/1710526737750.png',
+                      'assets/transactions/icon_salary.png',
                     ),
                     _buildSubTypeOption(
                       'Award',
-                      'assets/transactions/1710526737750.png',
+                      'assets/transactions/icon_award.png',
                     ),
                     _buildSubTypeOption(
                       'Interest',
-                      'assets/transactions/1710526737750.png',
+                      'assets/transactions/icon_interest.png',
                     ),
                     _buildSubTypeOption(
                       'Other',
-                      'assets/transactions/1710526737750.png',
+                      'assets/transactions/icon_plus.png',
                     ),
                   ],
                 ),
@@ -448,8 +461,18 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
       },
       child: Container(
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(255, 255, 255, 255)
+                  .withOpacity(1), // Shadow color
+              spreadRadius: 0, // Spread radius
+              blurRadius: 0, // Blur radius
+              offset: const Offset(0, 0), // Offset
+            ),
+          ],
           border: Border.all(
             color: Colors.black,
+            width: 2.0,
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -477,7 +500,7 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
                 // overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   // color: Colors.white70,
-                  fontSize: 14,
+                  fontSize: 10,
                 ),
               ),
             ],
@@ -488,9 +511,9 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
   }
 
   String getTitle(String txt) {
-    if (txt.length < 8) {
+    if (txt.length < 18) {
       return txt;
     }
-    return '${txt.substring(0, 7)}.';
+    return '${txt.substring(0, 17)}.';
   }
 }
