@@ -357,7 +357,7 @@ class _BuildDebtSubtypeState extends State<BuildDebtSubtype> {
             },
             child: const Padding(
               padding: EdgeInsets.fromLTRB(15, 2, 15, 2),
-              child: Text('add'),
+              child: Text('Add'),
             ),
           )
         ],

@@ -318,7 +318,7 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
             },
             child: const Padding(
               padding: EdgeInsets.fromLTRB(15, 2, 15, 2),
-              child: Text('add'),
+              child: Text('Add'),
             ),
           )
         ],
