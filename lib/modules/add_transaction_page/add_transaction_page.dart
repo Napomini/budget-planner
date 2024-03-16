@@ -49,14 +49,24 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
           const SizedBox(height: 20),
           Center(
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.grey,
+              margin: EdgeInsets.only(top: 20.0),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 255, 255, 255),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(255, 0, 0, 0)
+                        .withOpacity(.3), // Shadow color
+                    spreadRadius: 1, // Spread radius
+                    blurRadius: 3, // Blur radius
+                    offset: const Offset(0, 2),
+                  ),
+                ],
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: SizedBox(
-                  width: 310,
+                  width: 320,
                   child: TripleRail(
                     leading: BuildTransactionTypeButton(
                       title: 'Expense',
@@ -114,9 +124,7 @@ class BuildTransactionTypeButton extends StatelessWidget {
       onTap: () => ontap(),
       child: Container(
         decoration: BoxDecoration(
-          color: isActive
-              ? const Color.fromARGB(255, 47, 47, 49)
-              : const Color.fromARGB(70, 71, 71, 73),
+          color: isActive ? Colors.blue : Color.fromARGB(255, 0, 0, 0),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         height: 35,
