@@ -2,6 +2,7 @@ import 'package:budgetplanner/modules/root/root.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../data_wrapper.dart';
 import '../log_in/log_in_page.dart';
 
 class CheckLogInStatus extends StatefulWidget {
@@ -44,7 +45,8 @@ class _CheckLogInStatusState extends State<CheckLogInStatus> {
           return const LogInPage();
         }
         // return HomePage(user: snapshot.data!);
-        return Root(user: snapshot.data!);
+        // return Root(user: snapshot.data!);
+        return DataWrapper(user: snapshot.data!);
       },
     );
   }

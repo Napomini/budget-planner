@@ -25,7 +25,7 @@ class SavingTransactionWIdget extends StatelessWidget {
           CircleAvatar(
             radius: 27,
             child: Image.asset(
-              'assets/components/saving_icon.png',
+              transaction.subTypeImg,
               height: 25,
             ),
           ),
@@ -34,14 +34,14 @@ class SavingTransactionWIdget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                capitalize(transaction.transactionType.name),
+                capitalize(transaction.type),
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),
               ),
               Text(
-                capitalize(transaction.reason),
+                capitalize(transaction.subType),
                 style: const TextStyle(
                   color: Colors.black38,
                   fontSize: 14,
@@ -52,31 +52,31 @@ class SavingTransactionWIdget extends StatelessWidget {
         ],
       ),
       trailing: Text(
-        'Tk ${transaction.tansctionAmount}',
-        style: TextStyle(color: CTheme.expense),
+        'Tk ${transaction.amount}',
+        style: TextStyle(color: CTheme.imcome),
       ),
     );
   }
 }
 
-class _BuildIcon extends StatelessWidget {
-  final TransactionType transactionType;
-  const _BuildIcon({required this.transactionType});
+// class _BuildIcon extends StatelessWidget {
+//   final TransactionType transactionType;
+//   const _BuildIcon({required this.transactionType});
 
-  @override
-  Widget build(BuildContext context) {
-    if (transactionType == TransactionType.saving) {
-      return CircleAvatar(
-        radius: 27,
-        child: Image.asset(
-          'assets/components/saving_icon.png',
-          height: 25,
-        ),
-      );
-    }
-    return CircleAvatar(
-      radius: 27,
-      child: Text(transactionType.name.substring(0, 1)),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     if (transactionType == TransactionType.saving) {
+//       return CircleAvatar(
+//         radius: 27,
+//         child: Image.asset(
+//           'assets/components/saving_icon.png',
+//           height: 25,
+//         ),
+//       );
+//     }
+//     return CircleAvatar(
+//       radius: 27,
+//       child: Text(transactionType.name.substring(0, 1)),
+//     );
+//   }
+// }

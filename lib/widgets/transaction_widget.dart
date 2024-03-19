@@ -9,7 +9,7 @@ import 'saving_transaction_widget.dart';
 import 'triple_rail.dart';
 
 class TransactionWidget extends StatelessWidget {
-  final Transaction transaction;
+  final DailyTransaction transaction;
   const TransactionWidget({super.key, required this.transaction});
 
   @override
@@ -49,7 +49,7 @@ class _BuildSummarySection extends StatelessWidget {
     required this.distance,
   });
 
-  final Transaction transaction;
+  final DailyTransaction transaction;
   final double distance;
 
   @override
@@ -93,7 +93,7 @@ class _BuildSummarySection extends StatelessWidget {
         ],
       ),
       trailing: Text(
-        'Tk ${transaction.totalTransactionAmount}',
+        'Tk ${transaction.totalAmount}',
         style: const TextStyle(
           color: Colors.black,
         ),
@@ -113,7 +113,7 @@ class _BuildMicroTransaction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (transaction.transactionType == TransactionType.saving) {
+    if (transaction.type == "Income") {
       return Padding(
         padding: EdgeInsets.only(top: distance),
         child: SavingTransactionWIdget(
@@ -122,18 +122,18 @@ class _BuildMicroTransaction extends StatelessWidget {
         ),
       );
     }
-    if (transaction.transactionType == TransactionType.lending) {
+    if (transaction.subType == 'Lend') {
       return Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: EdgeInsets.only(top: distance),
         child: LendingTransactionWidget(
           transaction: transaction,
           distance: distance,
         ),
       );
     }
-    if (transaction.transactionType == TransactionType.borrowing) {
+    if (transaction.subType == 'Borrow') {
       return Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: EdgeInsets.only(top: distance),
         child: BorrowingTransactionWidget(
           transaction: transaction,
           distance: distance,
@@ -141,7 +141,7 @@ class _BuildMicroTransaction extends StatelessWidget {
       );
     }
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: EdgeInsets.only(top: distance),
       child: ExpenseTransactionWidget(
         transaction: transaction,
         distance: distance,

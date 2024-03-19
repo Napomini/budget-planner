@@ -1,12 +1,14 @@
 import 'package:budgetplanner/widgets/triple_rail.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/models/data.dart';
 import 'add_debt_subtype.dart';
 import 'add_expense_subtype.dart';
 import 'add_income_subtype.dart';
 
 class AddTransactionPage extends StatefulWidget {
-  const AddTransactionPage({super.key});
+  final Data data;
+  const AddTransactionPage({super.key, required this.data});
 
   @override
   State<AddTransactionPage> createState() => _AddTransactionPageState();
@@ -49,19 +51,19 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
           const SizedBox(height: 20),
           Center(
             child: Container(
-              margin: EdgeInsets.only(top: 20.0),
+              margin: const EdgeInsets.only(top: 20.0),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 boxShadow: [
                   BoxShadow(
-                    color: Color.fromARGB(255, 0, 0, 0)
+                    color: const Color.fromARGB(255, 0, 0, 0)
                         .withOpacity(.3), // Shadow color
                     spreadRadius: 1, // Spread radius
                     blurRadius: 3, // Blur radius
                     offset: const Offset(0, 2),
                   ),
                 ],
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -92,9 +94,9 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
             ),
           ),
           const SizedBox(height: 50),
-          if (_currentIndex == 0) const BuildExpenseEditor(),
-          if (_currentIndex == 1) const BuildIncomeEditor(),
-          if (_currentIndex == 2) const BuildDebtSubtype(),
+          if (_currentIndex == 0) BuildExpenseEditor(data: widget.data),
+          if (_currentIndex == 1) BuildIncomeEditor(data: widget.data),
+          if (_currentIndex == 2) BuildDebtSubtype(data: widget.data),
         ],
       ),
     );
@@ -124,7 +126,7 @@ class BuildTransactionTypeButton extends StatelessWidget {
       onTap: () => ontap(),
       child: Container(
         decoration: BoxDecoration(
-          color: isActive ? Colors.blue : Color.fromARGB(255, 0, 0, 0),
+          color: isActive ? Colors.blue : const Color.fromARGB(255, 0, 0, 0),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         height: 35,

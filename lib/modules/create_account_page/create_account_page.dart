@@ -1,3 +1,5 @@
+import 'package:budgetplanner/constants/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -84,10 +86,10 @@ class _CreateAccountPageContentsState extends State<CreateAccountPageContents> {
       return;
     }
     // logIn logic
-    signUp(email, password);
+    signUp(email, password, name, phone);
   }
 
-  void signUp(String email, String password) async {
+  void signUp(String email, String password, String name, String phone) async {
     setState(() {
       looding = true;
     });
@@ -99,33 +101,54 @@ class _CreateAccountPageContentsState extends State<CreateAccountPageContents> {
           email: email,
           password: password,
         );
-        Navigator.pop(context);
       });
+      final db = FirebaseFirestore.instance;
+      final uData = <String, String>{
+        'userName': name,
+        'userPhone': phone,
+        'userEmail': email,
+      };
+
+      db.collection(collectionName).doc(email).set(
+            uData,
+            SetOptions(merge: true),
+          );
+      setState(() {
+        looding = false;
+      });
+
+      if (mounted) {
+        Navigator.pop(context);
+      }
     } on FirebaseAuthException catch (e) {
+      setState(() {
+        looding = false;
+      });
       if (e.code == 'weak-password') {
-        if (context.mounted) {
+        if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('weak-password. Please add a strong password'),
           ));
         }
       } else if (e.code == 'email-already-in-use') {
-        if (context.mounted) {
+        if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('email-already-in-use. Please add a new email'),
           ));
         }
       }
     } catch (e) {
-      if (context.mounted) {
+      setState(() {
+        looding = false;
+      });
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(e.toString()),
         ));
       }
     }
-    setState(() {
-      looding = false;
-    });
-    if (context.mounted) Navigator.pop(context);
+
+    // if (mounted) Navigator.pop(context);
   }
 
   @override

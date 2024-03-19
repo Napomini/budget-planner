@@ -1,18 +1,31 @@
+import 'package:budgetplanner/constants/helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/models/data.dart';
+import '../../constants/models/transaction.dart';
+
 class BuildIncomeEditor extends StatefulWidget {
-  const BuildIncomeEditor({super.key});
+  final Data data;
+  const BuildIncomeEditor({super.key, required this.data});
 
   @override
   State<BuildIncomeEditor> createState() => _BuildIncomeEditorState();
 }
 
 class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
+  bool loading = false;
   late TextEditingController amountController;
   String subTypeImgUrl = 'assets/transactions/icon_salary.png';
   String subTypeTitle = 'Income';
   DateTime date = DateTime.now();
   late TextEditingController noteConroller;
+
+  void updateLoading(bool newVal) {
+    setState(() {
+      loading = newVal;
+    });
+  }
 
   @override
   void initState() {
@@ -30,6 +43,9 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
 
   @override
   Widget build(BuildContext context) {
+    if (loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
     final double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
@@ -304,23 +320,102 @@ class _BuildIncomeEditorState extends State<BuildIncomeEditor> {
             ),
           ),
           const SizedBox(height: 150),
-          OutlinedButton(
-            onPressed: () async {
-              debugPrint('## Onpressed at add expense');
-              String amountTxt = amountController.text;
-              int amount = int.parse(amountTxt);
-              debugPrint('## amount $amount');
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'amount $amount, category $subTypeTitle, time ${date.toString()}',
+          Center(
+            child: GestureDetector(
+              onTap: () async {
+                updateLoading(true);
+                debugPrint('## adding Income');
+                String amountString = amountController.text;
+                if (amountString.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Amount can not be empty'),
+                  ));
+                  updateLoading(false);
+                  return;
+                }
+                if (amountString == '0') {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Amount can not be zero'),
+                  ));
+                  updateLoading(false);
+                  return;
+                }
+                int amount = int.parse(amountString);
+                final mt = MicroTransaction(
+                  type: 'Income',
+                  subType: subTypeTitle,
+                  subTypeImg: subTypeImgUrl,
+                  amount: amount.toDouble(),
+                  time: date,
+                );
+                Data d = widget.data;
+                int index = -1;
+                for (int i = 0; i < d.transactions.length; i++) {
+                  DateTime dtDate = d.transactions[i].dateTime;
+                  if (dtDate.year == date.year &&
+                      dtDate.month == date.month &&
+                      dtDate.day == date.day) {
+                    index = i;
+                    break;
+                  }
+                }
+                debugPrint('## index $index');
+                List<DailyTransaction> dailyT = [];
+                dailyT.addAll(d.transactions);
+                if (index < 0) {
+                  final dt = DailyTransaction(
+                    dateTime: date,
+                    transactions: [mt],
+                  );
+                  dailyT.insert(0, dt);
+                  index = 0;
+                } else {
+                  dailyT[index].transactions.add(mt);
+                }
+                var newD = Data(
+                  userName: d.userName,
+                  userEmail: d.userEmail,
+                  userPhone: d.userPhone,
+                  transactions: dailyT,
+                  totalAmount: d.totalAmount,
+                );
+                newD = adjustAmount(
+                  newD,
+                  amount.toDouble(),
+                  'Income',
+                  '',
+                  index,
+                );
+
+                final dJson = newD.toJson();
+                debugPrint('## [new_data] ${dJson.toString()}');
+                final db = FirebaseFirestore.instance;
+
+                db
+                    .collection("test")
+                    .doc(d.userEmail)
+                    .set(dJson, SetOptions(merge: true));
+                debugPrint('## end................');
+                updateLoading(false);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Added $subTypeTitle successfully'),
+                ));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-              ));
-            },
-            child: const Padding(
-              padding: EdgeInsets.fromLTRB(15, 2, 15, 2),
-              child: Text('Add'),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(100, 10, 100, 10),
+                  child: Text('Add $subTypeTitle'),
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,19 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/helper.dart';
+import '../../constants/models/data.dart';
+import '../../constants/models/transaction.dart';
+
 class BuildDebtSubtype extends StatefulWidget {
-  const BuildDebtSubtype({super.key});
+  final Data data;
+  const BuildDebtSubtype({super.key, required this.data});
 
   @override
   State<BuildDebtSubtype> createState() => _BuildDebtSubtypeState();
 }
 
 class _BuildDebtSubtypeState extends State<BuildDebtSubtype> {
+  bool loading = false;
   late TextEditingController amountController;
   late TextEditingController otherPersionController;
   String subTypeImgUrl = 'assets/transactions/icon_lend.png';
   String subTypeTitle = 'Lend';
   DateTime date = DateTime.now();
   late TextEditingController noteConroller;
+
+  void updateLoading(bool newVal) {
+    setState(() {
+      loading = newVal;
+    });
+  }
 
   @override
   void initState() {
@@ -33,6 +46,9 @@ class _BuildDebtSubtypeState extends State<BuildDebtSubtype> {
 
   @override
   Widget build(BuildContext context) {
+    if (loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
     final double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
@@ -40,10 +56,10 @@ class _BuildDebtSubtypeState extends State<BuildDebtSubtype> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
+              color: const Color.fromARGB(255, 255, 255, 255),
               boxShadow: [
                 BoxShadow(
-                  color: Color.fromARGB(255, 39, 39, 39)
+                  color: const Color.fromARGB(255, 39, 39, 39)
                       .withOpacity(0.3), // Shadow color
                   spreadRadius: 0, // Spread radius
                   blurRadius: 10, // Blur radius
@@ -75,8 +91,9 @@ class _BuildDebtSubtypeState extends State<BuildDebtSubtype> {
                             child: Text(
                               'BDT',
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                  fontSize: 14),
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 14,
+                              ),
                             ),
                           ),
                         ),
@@ -343,23 +360,131 @@ class _BuildDebtSubtypeState extends State<BuildDebtSubtype> {
             ),
           ),
           const SizedBox(height: 150),
-          OutlinedButton(
-            onPressed: () async {
-              debugPrint('## Onpressed at add expense');
-              String amountTxt = amountController.text;
-              int amount = int.parse(amountTxt);
-              debugPrint('## amount $amount');
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'amount $amount, category $subTypeTitle, time ${date.toString()}',
+          Center(
+            child: GestureDetector(
+              onTap: () async {
+                updateLoading(true);
+                debugPrint('## adding $subTypeTitle');
+                String amountString = amountController.text;
+                if (amountString.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Amount can not be empty'),
+                  ));
+                  updateLoading(false);
+                  return;
+                }
+                if (amountString == '0') {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Amount can not be zero'),
+                  ));
+                  updateLoading(false);
+                  return;
+                }
+                String otherPersion = otherPersionController.text;
+                if (otherPersion.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                      '${getOtherPersionString()} can not be empty',
+                    ),
+                  ));
+                  updateLoading(false);
+                  return;
+                }
+                int amount = int.parse(amountString);
+                final mt = MicroTransaction(
+                  type: 'Debt',
+                  subType: subTypeTitle,
+                  subTypeImg: subTypeImgUrl,
+                  amount: amount.toDouble(),
+                  otherPerson: otherPersion,
+                  time: date,
+                );
+                Data d = widget.data;
+                int index = -1;
+                for (int i = 0; i < d.transactions.length; i++) {
+                  DateTime dtDate = d.transactions[i].dateTime;
+                  if (dtDate.year == date.year &&
+                      dtDate.month == date.month &&
+                      dtDate.day == date.day) {
+                    index = i;
+                    break;
+                  }
+                }
+                debugPrint('## index $index');
+                List<DailyTransaction> dailyT = [];
+                dailyT.addAll(d.transactions);
+                if (index < 0) {
+                  final dt = DailyTransaction(
+                    dateTime: date,
+                    transactions: [mt],
+                  );
+                  dailyT.insert(0, dt);
+                  index = 0;
+                } else {
+                  dailyT[index].transactions.add(mt);
+                }
+                var newD = Data(
+                  userName: d.userName,
+                  userEmail: d.userEmail,
+                  userPhone: d.userPhone,
+                  transactions: dailyT,
+                  totalAmount: d.totalAmount,
+                );
+                newD = adjustAmount(
+                  newD,
+                  amount.toDouble(),
+                  'Debt',
+                  subTypeTitle,
+                  index,
+                );
+
+                final dJson = newD.toJson();
+                debugPrint('## [new_data] ${dJson.toString()}');
+                final db = FirebaseFirestore.instance;
+
+                db
+                    .collection("test")
+                    .doc(d.userEmail)
+                    .set(dJson, SetOptions(merge: true));
+                debugPrint('## end................');
+                updateLoading(false);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Added $subTypeTitle successfully'),
+                ));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-              ));
-            },
-            child: const Padding(
-              padding: EdgeInsets.fromLTRB(15, 2, 15, 2),
-              child: Text('Add'),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(100, 10, 100, 10),
+                  child: Text('Add $subTypeTitle'),
+                ),
+              ),
             ),
-          )
+          ),
+
+          // OutlinedButton(
+          //   onPressed: () async {
+          //     debugPrint('## Onpressed at add expense');
+          //     String amountTxt = amountController.text;
+          //     int amount = int.parse(amountTxt);
+          //     debugPrint('## amount $amount');
+          //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //       content: Text(
+          //         'amount $amount, category $subTypeTitle, time ${date.toString()}',
+          //       ),
+          //     ));
+          //   },
+          //   child: const Padding(
+          //     padding: EdgeInsets.fromLTRB(15, 2, 15, 2),
+          //     child: Text('Add'),
+          //   ),
+          // )
         ],
       ),
     );
@@ -509,7 +634,7 @@ class _BuildDebtSubtypeState extends State<BuildDebtSubtype> {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Color.fromARGB(255, 255, 255, 255)
+              color: const Color.fromARGB(255, 255, 255, 255)
                   .withOpacity(1), // Shadow color
               spreadRadius: 0, // Spread radius
               blurRadius: 0, // Blur radius

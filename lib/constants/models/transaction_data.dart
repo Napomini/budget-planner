@@ -1,12 +1,8 @@
 import 'package:budgetplanner/constants/models/transaction.dart';
 
 class TransactionData {
-  // current amount.
-  // income.
-  // debt.
-  //
-  List<Transaction> transactionHistory;
-  TransactionData({this.transactionHistory = const <Transaction>[]});
+  List<DailyTransaction> transactionHistory;
+  TransactionData({this.transactionHistory = const <DailyTransaction>[]});
 }
 
 // use case gula ki ki.

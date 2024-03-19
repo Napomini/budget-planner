@@ -1,7 +1,7 @@
+import 'package:budgetplanner/data_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../root/root.dart';
 import 'log_in_page.dart';
 
 class CheckLogInStatus extends StatefulWidget {
@@ -42,8 +42,7 @@ class _CheckLogInStatusState extends State<CheckLogInStatus> {
         if (snapshot.data == null) {
           return const LogInPage();
         }
-        // return HomePage(user: snapshot.data!);
-        return Root(user: snapshot.data!);
+        return DataWrapper(user: snapshot.data!);
       },
     );
   }

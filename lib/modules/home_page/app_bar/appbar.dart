@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  final String userName;
+  final int totalAmount;
+  const CustomAppBar({
+    super.key,
+    required this.userName,
+    required this.totalAmount,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 0, 123, 255),
+      color: const Color.fromARGB(255, 0, 123, 255),
       child: Column(
         children: [
           SafeArea(child: Container()),
@@ -28,8 +34,8 @@ class CustomAppBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.white,
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -38,21 +44,21 @@ class CustomAppBar extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         // SizedBox(width: 10),
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 10,
                           child: Icon(Icons.person, size: 15),
                         ),
-                        SizedBox(width: 5),
-                        Text('user name'),
-                        Spacer(),
-                        Icon(Icons.remove_red_eye),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 5),
+                        Text(userName),
+                        const Spacer(),
+                        const Icon(Icons.remove_red_eye),
+                        const SizedBox(width: 10),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      'Tk 56, 000.00',
-                      style: TextStyle(
+                      'Tk $totalAmount',
+                      style: const TextStyle(
                         fontSize: 32,
                         color: Colors.redAccent,
                         fontWeight: FontWeight.bold,

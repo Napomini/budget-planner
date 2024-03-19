@@ -28,25 +28,13 @@ class LendingTransactionWidget extends StatelessWidget {
           CircleAvatar(
             radius: 27,
             child: Text(
-              transaction.reason.substring(0, 2).toUpperCase(),
+              transaction.otherPerson.substring(0, 2).toUpperCase(),
             ),
           ),
-          // Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     Text(
-          //       capitalize(transaction.transactionType.name),
-          //       style: const TextStyle(
-          //         fontWeight: FontWeight.w600,
-          //         fontSize: 14,
-          //       ),
-          //     ),
-          //   ],
-          // )
         ],
       ),
       trailing: Text(
-        'Tk ${transaction.tansctionAmount}',
+        'Tk ${transaction.amount}',
         style: TextStyle(color: CTheme.expense),
       ),
     );

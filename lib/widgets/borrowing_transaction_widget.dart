@@ -28,13 +28,13 @@ class BorrowingTransactionWidget extends StatelessWidget {
           CircleAvatar(
             radius: 27,
             child: Text(
-              transaction.reason.substring(0, 2).toUpperCase(),
+              transaction.otherPerson.substring(0, 2).toUpperCase(),
             ),
           ),
         ],
       ),
       trailing: Text(
-        'Tk ${transaction.tansctionAmount}',
+        'Tk ${transaction.amount}',
         style: TextStyle(color: CTheme.expense),
       ),
     );

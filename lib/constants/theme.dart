@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CTheme {
   static Color primaryColor = const Color.fromRGBO(76, 176, 80, 1.0);
   static Color expense = Colors.redAccent;
+  static Color imcome = Colors.blueAccent;
   //static keyword=In Dart, the static keyword is used to declare class-level members,
   // which means that the member belongs to the class itself rather than to
   //instances of the class.ll instances of the class share the same static variable.
